@@ -23,8 +23,8 @@
         </div>
         <div class="math">
             Step:
-            <button class="button minus">-2</button>
-            <button class="button plus">+2</button>
+            <button class="button minus" v-on:click="decrementStepHandler">-2</button>
+            <button class="button plus" v-on:click="incrementStepHandler">+2</button>
         </div>
     </section>
     <hr>
@@ -40,8 +40,8 @@
         </div>
         <div class="math">
             Step:
-            <button class="button minus">-2</button>
-            <button class="button plus">+2</button>
+            <button class="button step-minus">-2</button>
+            <button class="button step-plus">+2</button>
         </div>
     </section>
     <script>
@@ -52,12 +52,23 @@
                 step: 2
             },
             methods: {
-                incrementCounterHandler() {},
-                decrementCounterHandler() {}
-                //...
+                incrementCounterHandler() {
+                    this.counter += 1;
+                },
+                decrementCounterHandler() {
+                    this.counter -= 1;
+                },
+                incrementStepHandler() {
+                    this.step += 2;
+                },
+                decrementStepHandler() {
+                    this.step -= 2;
+                }
             },
             computed: {
-                sum() {}
+                sum() {
+                    return this.counter + this.step
+                }
             }
         })
     </script>
@@ -65,6 +76,8 @@
         const counterEl = document.querySelector('.js-app .counter');
         const buttonElMinus = document.querySelector('.js-app .minus');
         const buttonElPlus = document.querySelector('.js-app .plus');
+        const buttonStepMinus = document.querySelector('.js-app .step-minus');
+        const buttonStepPlus = document.querySelector('.js-app .step-plus');
         const sumEl = document.querySelector('.js-app .sum');
         const stepEl = document.querySelector('.js-app .step');
 
@@ -73,10 +86,26 @@
             step: 2
         };
 
-        const incrementCounterHandler = function () {};
-        const decrementCounterHandler = function () {};
-        //...
-        const getSum = function () {};
+        const incrementCounterHandler = function () {
+            data.counter += 1;
+            counterEl.textContent = data.counter;
+        };
+        const decrementCounterHandler = function () {
+            data.counter -= 1;
+            counterEl.textContent = data.counter;
+        };
+        const incrementStepHandler = function () {
+            data.step += 2;
+            stepEl.textContent = data.step;
+        };
+        const decrementStepHandler = function () {
+            data.step -= 2;
+            stepEl.textContent = data.step;
+        };
+        const getSum = function () {
+            const sum = data.counter + data.step;
+            sumEl.textContent = sum;
+        };
 
         const queue = [getSum];
 
@@ -101,6 +130,8 @@
         getSum();
         buttonElMinus.addEventListener('click', decrementCounterHandler);
         buttonElPlus.addEventListener('click', incrementCounterHandler);
+        buttonStepMinus.addEventListener('click', decrementStepHandler);
+        buttonStepPlus.addEventListener('click', incrementStepHandler);
     </script>
 </body>
 
